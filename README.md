@@ -6,7 +6,7 @@ A lightweight inventory management web app for independent retailers. Scan a pro
  
 * **Frontend**: Vercel
 * **Backend**: Supabase (Postgres, Auth, Edge Functions)
-Available at: https://stockly.vercel.app
+
  
 ## Features
  
