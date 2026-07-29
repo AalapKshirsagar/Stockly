@@ -1,0 +1,86 @@
+import { useState } from "react";
+import { AddToWatchlistDialog } from "../components/AddToWatchlistDialog";
+import { StockVerdictCard } from "../components/StockVerdictCard";
+import { supabase } from "../lib/supabaseClient";
+import type { StockAnalysis } from "../lib/types";
+
+export function AnalyzePage() {
+  const [ticker, setTicker] = useState("");
+  const [analysis, setAnalysis] = useState<StockAnalysis | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showAddDialog, setShowAddDialog] = useState(false);
+
+  async function handleAnalyze(e: React.FormEvent) {
+    e.preventDefault();
+    const symbol = ticker.trim().toUpperCase();
+    if (!symbol) return;
+
+    setLoading(true);
+    setError(null);
+    setAnalysis(null);
+
+    const { data, error: fnError } = await supabase.functions.invoke("analyze-stock", {
+      body: { ticker: symbol },
+    });
+
+    setLoading(false);
+    if (fnError) {
+      setError(fnError.message);
+      return;
+    }
+    if (data?.error) {
+      setError(data.error);
+      return;
+    }
+    setAnalysis(data as StockAnalysis);
+  }
+
+  return (
+    <div className="mx-auto max-w-2xl px-6 py-8">
+      <h1 className="text-2xl font-bold text-slate-900">Ask the AI</h1>
+      <p className="mt-1 text-sm text-slate-500">
+        Enter a ticker symbol to get a buy/hold/avoid verdict based on technical indicators, with an
+        AI-written explanation.
+      </p>
+
+      <form onSubmit={handleAnalyze} className="mt-4 flex gap-2">
+        <input
+          value={ticker}
+          onChange={(e) => setTicker(e.target.value)}
+          placeholder="e.g. AAPL"
+          className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm uppercase"
+        />
+        <button
+          type="submit"
+          disabled={loading}
+          className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+        >
+          {loading ? "Analyzing..." : "Analyze"}
+        </button>
+      </form>
+
+      {error && <p className="mt-4 text-sm text-rose-600">{error}</p>}
+
+      {analysis && (
+        <div className="mt-6 space-y-4">
+          <StockVerdictCard analysis={analysis} />
+          <button
+            onClick={() => setShowAddDialog(true)}
+            className="w-full rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+          >
+            Add {analysis.ticker} to watchlist
+          </button>
+        </div>
+      )}
+
+      {showAddDialog && analysis && (
+        <AddToWatchlistDialog
+          ticker={analysis.ticker}
+          onClose={() => setShowAddDialog(false)}
+          onAdded={() => setShowAddDialog(false)}
+        />
+      )}
+    </div>
+  );
+}
