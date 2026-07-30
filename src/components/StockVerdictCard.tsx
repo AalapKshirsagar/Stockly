@@ -1,4 +1,5 @@
 import type { StockAnalysis } from "../lib/types";
+import { PriceChart } from "./PriceChart";
 
 const verdictStyles: Record<StockAnalysis["verdict"], string> = {
   buy: "bg-good-tint text-good border-good-border",
@@ -40,6 +41,8 @@ export function StockVerdictCard({ analysis }: { analysis: StockAnalysis }) {
       )}
 
       <p className="mt-4 text-sm leading-relaxed text-ink">{analysis.rationale}</p>
+
+      <PriceChart candles={analysis.candles} />
 
       <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm sm:grid-cols-3">
         <Metric label="Trend" value={indicators.trend} />

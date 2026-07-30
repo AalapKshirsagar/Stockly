@@ -46,6 +46,7 @@ Deno.serve(async (req) => {
       scope: { hasScope: cached.has_scope, reasons: cached.indicators.scopeReasons ?? [] },
       rationale: cached.rationale,
       indicators: cached.indicators,
+      candles: cached.candles ?? [],
     };
     return jsonResponse(analysis);
   }
@@ -79,6 +80,7 @@ Deno.serve(async (req) => {
       scope: signal.scope,
       rationale,
       indicators: signal.indicators,
+      candles,
     };
 
     await supabase.from("ai_analyses").upsert({
@@ -88,6 +90,7 @@ Deno.serve(async (req) => {
       has_scope: signal.scope.hasScope,
       rationale,
       indicators: { ...signal.indicators, scopeReasons: signal.scope.reasons },
+      candles,
       created_at: new Date().toISOString(),
     });
 

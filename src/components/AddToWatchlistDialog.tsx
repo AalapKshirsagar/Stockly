@@ -44,7 +44,7 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-ink/40 p-4">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/60 p-4">
       <div className="w-full max-w-sm border border-line-strong bg-surface p-6">
         <h3 className="font-serif text-lg font-bold text-ink">Add {ticker} to watchlist</h3>
         <form onSubmit={handleSubmit} className="mt-4 space-y-3">

@@ -110,6 +110,7 @@ create table if not exists public.ai_analyses (
   has_scope boolean not null default false,
   rationale text not null,
   indicators jsonb not null,
+  candles jsonb not null default '[]'::jsonb,
   created_at timestamptz not null default now()
 );
 

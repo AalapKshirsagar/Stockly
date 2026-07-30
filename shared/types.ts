@@ -35,4 +35,5 @@ export interface StockAnalysis extends RuleBasedSignal {
   ticker: string;
   companyName: string | null;
   rationale: string;
+  candles: Candle[];
 }
