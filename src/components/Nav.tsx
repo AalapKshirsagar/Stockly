@@ -1,9 +1,9 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../lib/auth/AuthProvider";
 
-const linkClass = ({ isActive }: { isActive: boolean }) =>
-  `px-3 py-2 rounded-md text-sm font-medium ${
-    isActive ? "bg-slate-900 text-white" : "text-slate-600 hover:bg-slate-100"
+const tabClass = ({ isActive }: { isActive: boolean }) =>
+  `border-b-2 pb-2.5 pt-2 text-sm font-semibold tracking-tight ${
+    isActive ? "border-brass text-ink" : "border-transparent text-ink-faint hover:text-ink-muted"
   }`;
 
 export function Nav() {
@@ -11,25 +11,34 @@ export function Nav() {
   if (!user) return null;
 
   return (
-    <nav className="flex items-center justify-between border-b border-slate-200 px-6 py-3">
-      <div className="flex items-center gap-2">
-        <span className="text-lg font-bold text-slate-900">Stockly</span>
-        <NavLink to="/" className={linkClass} end>
+    <header className="mx-auto max-w-4xl px-6 pt-6">
+      <div className="flex flex-wrap items-baseline justify-between gap-4">
+        <div className="font-serif text-2xl font-bold text-ink">
+          Stockly
+          <small className="ml-3 align-middle font-sans text-xs font-medium uppercase tracking-widest text-ink-faint">
+            AI stock analyzer &amp; price alerts
+          </small>
+        </div>
+        <div className="font-mono text-xs text-ink-faint">{user.email}</div>
+      </div>
+      <hr className="mt-3 border-t-[3px] border-double border-line-strong" />
+      <nav className="mt-0.5 flex gap-6">
+        <NavLink to="/" className={tabClass} end>
           Watchlist
         </NavLink>
-        <NavLink to="/analyze" className={linkClass}>
+        <NavLink to="/analyze" className={tabClass}>
           Analyze
         </NavLink>
-        <NavLink to="/alerts" className={linkClass}>
+        <NavLink to="/alerts" className={tabClass}>
           Alert History
         </NavLink>
-      </div>
-      <div className="flex items-center gap-3 text-sm text-slate-500">
-        <span>{user.email}</span>
-        <button onClick={() => signOut()} className="text-slate-600 hover:text-slate-900">
+        <button
+          onClick={() => signOut()}
+          className="ml-auto pb-2.5 pt-2 text-sm text-ink-faint hover:text-ink-muted"
+        >
           Sign out
         </button>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }

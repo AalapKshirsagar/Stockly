@@ -38,8 +38,8 @@ export function AnalyzePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-6 py-8">
-      <h1 className="text-2xl font-bold text-slate-900">Ask the AI</h1>
-      <p className="mt-1 text-sm text-slate-500">
+      <h1 className="font-serif text-2xl font-bold text-ink">Ask the AI</h1>
+      <p className="mt-1 text-sm text-ink-muted">
         Enter a ticker symbol to get a buy/hold/avoid verdict based on technical indicators, with an
         AI-written explanation.
       </p>
@@ -49,27 +49,27 @@ export function AnalyzePage() {
           value={ticker}
           onChange={(e) => setTicker(e.target.value)}
           placeholder="e.g. AAPL"
-          className="flex-1 rounded-md border border-slate-300 px-3 py-2 text-sm uppercase"
+          className="flex-1 border border-line-strong bg-surface px-3 py-2 font-mono text-sm uppercase text-ink"
         />
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+          className="border border-brass bg-brass px-4 py-2 text-sm font-bold text-surface hover:border-brass-strong hover:bg-brass-strong disabled:opacity-50"
         >
           {loading ? "Analyzing..." : "Analyze"}
         </button>
       </form>
 
-      {error && <p className="mt-4 text-sm text-rose-600">{error}</p>}
+      {error && <p className="mt-4 text-sm text-bad">{error}</p>}
 
       {analysis && (
         <div className="mt-6 space-y-4">
           <StockVerdictCard analysis={analysis} />
           <button
             onClick={() => setShowAddDialog(true)}
-            className="w-full rounded-md border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50"
+            className="w-full border border-line-strong px-4 py-2 text-sm font-medium text-ink hover:bg-surface2"
           >
-            Add {analysis.ticker} to watchlist
+            + Add {analysis.ticker} to watchlist
           </button>
         </div>
       )}

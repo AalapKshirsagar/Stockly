@@ -8,7 +8,7 @@ import { LoginPage } from "./pages/LoginPage";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-paper">
       <Nav />
       <Routes>
         <Route path="/login" element={<LoginPage />} />

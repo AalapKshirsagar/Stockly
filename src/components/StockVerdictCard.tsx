@@ -1,33 +1,35 @@
 import type { StockAnalysis } from "../lib/types";
 
 const verdictStyles: Record<StockAnalysis["verdict"], string> = {
-  buy: "bg-emerald-100 text-emerald-800 border-emerald-300",
-  hold: "bg-amber-100 text-amber-800 border-amber-300",
-  avoid: "bg-rose-100 text-rose-800 border-rose-300",
+  buy: "bg-good-tint text-good border-good-border",
+  hold: "bg-warn-tint text-warn border-warn-border",
+  avoid: "bg-bad-tint text-bad border-bad-border",
 };
 
 export function StockVerdictCard({ analysis }: { analysis: StockAnalysis }) {
   const { indicators } = analysis;
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-      <div className="flex items-start justify-between">
+    <div className="border border-line bg-surface p-6">
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-900">
+          <h2 className="font-serif text-xl font-bold text-ink">
             {analysis.ticker}
-            {analysis.companyName ? ` · ${analysis.companyName}` : ""}
+            {analysis.companyName ? (
+              <span className="font-sans text-base font-normal text-ink-faint"> · {analysis.companyName}</span>
+            ) : (
+              ""
+            )}
           </h2>
-          <p className="text-2xl font-semibold text-slate-800">${indicators.price.toFixed(2)}</p>
+          <p className="mt-1 font-mono text-2xl font-bold text-ink">${indicators.price.toFixed(2)}</p>
         </div>
-        <span
-          className={`rounded-full border px-3 py-1 text-sm font-semibold uppercase ${verdictStyles[analysis.verdict]}`}
-        >
-          {analysis.verdict}
+        <span className={`border px-2 py-0.5 font-mono text-sm font-bold ${verdictStyles[analysis.verdict]}`}>
+          [ {analysis.verdict.toUpperCase()} ]
         </span>
       </div>
 
       {analysis.scope.hasScope && (
-        <div className="mt-3 rounded-md bg-sky-50 p-3 text-sm text-sky-800">
+        <div className="mt-3 border border-scope-border bg-scope-tint p-3 text-sm text-scope">
           <p className="font-semibold">Scope detected (potential upside)</p>
           <ul className="mt-1 list-inside list-disc">
             {analysis.scope.reasons.map((reason) => (
@@ -37,9 +39,9 @@ export function StockVerdictCard({ analysis }: { analysis: StockAnalysis }) {
         </div>
       )}
 
-      <p className="mt-4 text-sm leading-relaxed text-slate-700">{analysis.rationale}</p>
+      <p className="mt-4 text-sm leading-relaxed text-ink">{analysis.rationale}</p>
 
-      <dl className="mt-4 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+      <dl className="mt-4 grid grid-cols-2 gap-3 border-t border-line pt-4 text-sm sm:grid-cols-3">
         <Metric label="Trend" value={indicators.trend} />
         <Metric label="RSI (14)" value={indicators.rsi14?.toFixed(1) ?? "n/a"} />
         <Metric label="SMA 20" value={indicators.sma20 ? `$${indicators.sma20.toFixed(2)}` : "n/a"} />
@@ -54,8 +56,8 @@ export function StockVerdictCard({ analysis }: { analysis: StockAnalysis }) {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <dt className="text-xs uppercase tracking-wide text-slate-400">{label}</dt>
-      <dd className="font-medium text-slate-800">{value}</dd>
+      <dt className="text-[0.64rem] uppercase tracking-wider text-ink-faint">{label}</dt>
+      <dd className="font-mono font-bold text-ink">{value}</dd>
     </div>
   );
 }

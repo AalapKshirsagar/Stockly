@@ -44,9 +44,9 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/40 p-4">
-      <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-xl">
-        <h3 className="text-lg font-semibold text-slate-900">Add {ticker} to watchlist</h3>
+    <div className="fixed inset-0 flex items-center justify-center bg-ink/40 p-4">
+      <div className="w-full max-w-sm border border-line-strong bg-surface p-6">
+        <h3 className="font-serif text-lg font-bold text-ink">Add {ticker} to watchlist</h3>
         <form onSubmit={handleSubmit} className="mt-4 space-y-3">
           <Field label="Shares owned (leave blank if just watching)">
             <input
@@ -54,7 +54,7 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
               step="any"
               value={sharesOwned}
               onChange={(e) => setSharesOwned(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="w-full border border-line-strong bg-surface px-3 py-2 font-mono text-sm text-ink"
             />
           </Field>
           <Field label="Average cost per share">
@@ -63,7 +63,7 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
               step="any"
               value={avgCost}
               onChange={(e) => setAvgCost(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="w-full border border-line-strong bg-surface px-3 py-2 font-mono text-sm text-ink"
             />
           </Field>
           <Field label="Alert me when it drops (%)">
@@ -72,7 +72,7 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
               step="any"
               value={dropAlertPct}
               onChange={(e) => setDropAlertPct(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="w-full border border-line-strong bg-surface px-3 py-2 font-mono text-sm text-ink"
               required
             />
           </Field>
@@ -82,24 +82,24 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
               step="any"
               value={targetPrice}
               onChange={(e) => setTargetPrice(e.target.value)}
-              className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+              className="w-full border border-line-strong bg-surface px-3 py-2 font-mono text-sm text-ink"
             />
           </Field>
 
-          {error && <p className="text-sm text-rose-600">{error}</p>}
+          {error && <p className="text-sm text-bad">{error}</p>}
 
           <div className="flex justify-end gap-2 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md px-4 py-2 text-sm text-slate-600 hover:bg-slate-100"
+              className="px-4 py-2 text-sm text-ink-muted hover:bg-surface2"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+              className="border border-brass bg-brass px-4 py-2 text-sm font-bold text-surface hover:border-brass-strong hover:bg-brass-strong disabled:opacity-50"
             >
               {saving ? "Saving..." : "Save"}
             </button>
@@ -113,7 +113,7 @@ export function AddToWatchlistDialog({ ticker, onClose, onAdded }: Props) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-medium text-slate-500">{label}</span>
+      <span className="mb-1 block text-xs font-medium text-ink-faint">{label}</span>
       {children}
     </label>
   );

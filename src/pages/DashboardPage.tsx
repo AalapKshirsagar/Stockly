@@ -31,14 +31,14 @@ export function DashboardPage() {
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-8">
-      <h1 className="text-2xl font-bold text-slate-900">Your Watchlist</h1>
-      <p className="mt-1 text-sm text-slate-500">
+      <h1 className="font-serif text-2xl font-bold text-ink">Your watchlist</h1>
+      <p className="mt-1 text-sm text-ink-muted">
         Owned positions alert on any drop past your threshold. Watch-only tickers alert when a drop
         coincides with a "scope" (upside potential) signal.
       </p>
 
       <div className="mt-6">
-        {loading ? <p className="text-slate-500">Loading...</p> : <WatchlistTable items={items} onRemove={handleRemove} />}
+        {loading ? <p className="text-ink-muted">Loading...</p> : <WatchlistTable items={items} onRemove={handleRemove} />}
       </div>
     </div>
   );

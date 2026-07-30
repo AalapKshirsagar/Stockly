@@ -30,10 +30,10 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-50">
-      <div className="w-full max-w-sm rounded-lg border border-slate-200 bg-white p-8 shadow-sm">
-        <h1 className="text-2xl font-bold text-slate-900">Stockly</h1>
-        <p className="mt-1 text-sm text-slate-500">AI-assisted stock analysis and price alerts.</p>
+    <div className="flex min-h-screen items-center justify-center bg-paper">
+      <div className="w-full max-w-sm border border-line bg-surface p-8">
+        <h1 className="font-serif text-2xl font-bold text-ink">Stockly</h1>
+        <p className="mt-1 text-sm text-ink-muted">AI-assisted stock analysis and price alerts.</p>
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-3">
           <input
@@ -42,7 +42,7 @@ export function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="w-full border border-line-strong bg-surface px-3 py-2 text-sm text-ink"
           />
           <input
             type="password"
@@ -51,16 +51,16 @@ export function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="w-full border border-line-strong bg-surface px-3 py-2 text-sm text-ink"
           />
 
-          {error && <p className="text-sm text-rose-600">{error}</p>}
-          {info && <p className="text-sm text-emerald-600">{info}</p>}
+          {error && <p className="text-sm text-bad">{error}</p>}
+          {info && <p className="text-sm text-good">{info}</p>}
 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50"
+            className="w-full border border-brass bg-brass px-4 py-2 text-sm font-bold text-surface hover:border-brass-strong hover:bg-brass-strong disabled:opacity-50"
           >
             {submitting ? "Please wait..." : mode === "signin" ? "Sign in" : "Sign up"}
           </button>
@@ -68,7 +68,7 @@ export function LoginPage() {
 
         <button
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-4 text-sm text-slate-500 hover:text-slate-800"
+          className="mt-4 text-sm text-ink-faint hover:text-ink-muted"
         >
           {mode === "signin" ? "Need an account? Sign up" : "Already have an account? Sign in"}
         </button>

@@ -8,42 +8,54 @@ interface Props {
 export function WatchlistTable({ items, onRemove }: Props) {
   if (items.length === 0) {
     return (
-      <p className="rounded-lg border border-dashed border-slate-300 p-8 text-center text-slate-500">
+      <p className="border border-dashed border-line-strong p-8 text-center text-ink-faint">
         No stocks yet. Search a ticker on the Analyze page and add it to your watchlist.
       </p>
     );
   }
 
   return (
-    <table className="w-full overflow-hidden rounded-lg border border-slate-200 text-left text-sm">
-      <thead className="bg-slate-50 text-xs uppercase text-slate-500">
-        <tr>
-          <th className="px-4 py-3">Ticker</th>
-          <th className="px-4 py-3">Position</th>
-          <th className="px-4 py-3">Drop alert</th>
-          <th className="px-4 py-3">Target price</th>
-          <th className="px-4 py-3" />
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-slate-100">
-        {items.map((item) => (
-          <tr key={item.id}>
-            <td className="px-4 py-3 font-semibold text-slate-900">{item.ticker}</td>
-            <td className="px-4 py-3 text-slate-600">
-              {item.shares_owned ? `${item.shares_owned} shares owned` : "Watching only"}
-            </td>
-            <td className="px-4 py-3 text-slate-600">{item.drop_alert_pct}%</td>
-            <td className="px-4 py-3 text-slate-600">
-              {item.target_price ? `$${item.target_price}` : "—"}
-            </td>
-            <td className="px-4 py-3 text-right">
-              <button onClick={() => onRemove(item.id)} className="text-rose-600 hover:underline">
-                Remove
-              </button>
-            </td>
+    <div className="overflow-x-auto border border-line bg-surface">
+      <table className="w-full text-left text-sm">
+        <thead>
+          <tr>
+            <th className="border-b border-line-strong px-4 py-3 text-[0.68rem] font-bold uppercase tracking-wider text-ink-faint">
+              Ticker
+            </th>
+            <th className="border-b border-line-strong px-4 py-3 text-[0.68rem] font-bold uppercase tracking-wider text-ink-faint">
+              Position
+            </th>
+            <th className="border-b border-line-strong px-4 py-3 text-[0.68rem] font-bold uppercase tracking-wider text-ink-faint">
+              Drop alert
+            </th>
+            <th className="border-b border-line-strong px-4 py-3 text-[0.68rem] font-bold uppercase tracking-wider text-ink-faint">
+              Target price
+            </th>
+            <th className="border-b border-line-strong px-4 py-3" />
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {items.map((item) => (
+            <tr key={item.id} className="hover:bg-surface2">
+              <td className="border-b border-line px-4 py-3 font-mono font-bold text-ink">{item.ticker}</td>
+              <td className="border-b border-line px-4 py-3">
+                <span className="border border-line-strong bg-surface2 px-2 py-0.5 font-mono text-xs text-ink-muted">
+                  {item.shares_owned ? `${item.shares_owned} sh owned` : "watching"}
+                </span>
+              </td>
+              <td className="border-b border-line px-4 py-3 font-mono text-ink-muted">{item.drop_alert_pct}%</td>
+              <td className="border-b border-line px-4 py-3 font-mono text-ink-muted">
+                {item.target_price ? `$${item.target_price}` : "—"}
+              </td>
+              <td className="border-b border-line px-4 py-3 text-right">
+                <button onClick={() => onRemove(item.id)} className="text-bad hover:underline">
+                  Remove
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
